@@ -1,12 +1,10 @@
-workflows:
-version: 2.1
 jobs:
   build:
-  docker:
-      - image: cimg/node:14.10.1 # the primary container, where your job's comm>
+    docker:
+      - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var referen>
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
       - run: yarn global add node-gyp
