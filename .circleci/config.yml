@@ -4,12 +4,10 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.10.1
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var referen>
     steps:
       - checkout
-      - run: yarn global add node-gyp && yarn install
+      - run: yarn global add node-gyp
+      - run: yarn install
       - run: yarn lint
       - run: yarn format:check
       - run: yarn test:ci
