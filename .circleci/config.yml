@@ -5,12 +5,14 @@ jobs:
       - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
     steps:
       - checkout
+      - restore_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn global add node-gyp
       - run: yarn install
       - run: yarn lint
       - run: yarn format:check
       - run: yarn test:ci
       - save_cache:
-          key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
