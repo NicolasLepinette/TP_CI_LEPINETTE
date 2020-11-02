@@ -2,8 +2,6 @@ workflows:
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: cimg/node:14.10.1
     steps:
       - checkout
       - run: yarn global add node-gyp
