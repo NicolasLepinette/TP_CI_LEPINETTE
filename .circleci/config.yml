@@ -1,34 +1,8 @@
 version: 2.1
+orbs:
+  node: circleci/node@3.0.0
 workflows:
-  build_and_test:
+  node-tests:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-jobs:
-  build:
-    docker:
-      - image: cimg/node:14.10.1
-    steps:
-      - checkout
-      - restore_cache:
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-      - run: yarn global add node-gyp && yarn install
-      - save_cache:
-          key: yarn-packages-{{ checksum "yarn.lock" }}      
-          paths:
-            - ./node_modules
-  test:
-    docker:
-      - image: cimg/node:14.10.1
-    steps: 
-      - checkout
-      - restore_cache:
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-      - run: yarn lint && yarn format:check
-      - run: yarn test:ci
-      - save_cache:
-          key: yarn-packages-{{ checksum "yarn.lock" }}      
-          paths:
-            - ./node_modules
+      - node/test
+
