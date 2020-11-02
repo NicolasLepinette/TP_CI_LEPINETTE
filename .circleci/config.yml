@@ -1,10 +1,8 @@
+workflows:
 jobs:
   build:
     docker:
       - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
       - run: yarn global add node-gyp
@@ -13,6 +11,6 @@ jobs:
       - run: yarn format:check
       - run: yarn test:ci
       - save_cache:
-          key: yarn-packages-{{ checksum "yarn.lcok" }}
+          key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
